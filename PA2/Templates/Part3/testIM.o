@@ -1,0 +1,22 @@
+sw $17, MEM[0x04]   // MEM[0x04] = 0000_0037
+sw $2, MEM[0x0C]    // MEM[0x0C] = 0000_0003
+lw $24, MEM[0x0C]   // $24 = 0000_0003
+lw $25, MEM[0x04]   // $25 = 0000_0037
+addi $24, $24, 0x0C // $24 = 0000_000F
+addi $25, $24, 0xB0 // $25 = 0000_00BF
+ori $24, $24, 0x0A  // $24 = 0000_000F
+sll $25, $25, 5     // $25 = 0000_17E0
+J 0x0B              // Jump to "sw $24, MEM[0x18]"
+sw $26, MEM[0x10]   // Not execute
+sw $25, MEM[0x14]   // Not execute
+sw $24, MEM[0x18]   // MEM[0x18] = 0000_000F
+
+Result:
+    In Register File:
+        $24 = 0000_000F
+        $25 = 0000_17E0
+    In Data Memory:
+        MEM[0x04] = 0000_0037
+        MEM[0x0C] = 0000_0003
+        MEM[0x18] = 0000_000F
+
